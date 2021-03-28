@@ -3,12 +3,14 @@ pipeline{
     tools{
         maven 'M3'
     }
+
     stages {
         stage('Checkout'){
             steps{
-                git 'https://github.com/yaminianand/Digital-Bank.git'
+                 git branch: 'main', url: 'https://github.com/yaminianand/Digital-Bank.git'
             }
         }
+
         stage('Build'){
             steps{
                  sh 'mvn clean compile'
@@ -28,6 +30,15 @@ pipeline{
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
                 }
         }
+
+	stage('Deploy'){
+            steps{
+                input message: 'Do you want to proceed with Deployment? (Click "Proceed" to continue)'   
+		sh "sudo docker build . -t yaminianand/digitalbank"
+		// sh "sudo docker push yaminianand/digitalbank"
+		sh "sudo docker run -d -p 8087:8080 yaminianand/digitalbank"
+            }
+        } 
    }
 }
 
