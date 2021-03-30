@@ -1,5 +1,10 @@
 pipeline{
     agent{label 'master'}
+    environment {
+        imagename = "yaminianand/digitalbank"
+        registryCredential = 'DOCKERHUBCRED'
+        dockerImage = ''
+    }
     tools{
         maven 'M3'
     }
@@ -32,13 +37,18 @@ pipeline{
         }
 
 	stage('Deploy'){
-            steps{
-                input message: 'Do you want to proceed with Deployment? (Click "Proceed" to continue)'   
-		sh "sudo docker build . -t yaminianand/digitalbank1"
-		sh "sudo docker push yaminianand/digitalbank1"
-		//sh "sudo docker run -d -p 8087:8080 yaminianand/digitalbank"
-            }
-        } 
+	    steps {
+                 script{
+ 		      input message: 'Do you want to proceed with Deployment? (Click "Proceed" to continue)'   
+                      dockerImage = docker.build imagename
+                      docker.withRegistry( 'https://hub.docker.com', registryCredential ) {
+                            dockerImage.push("$BUILD_NUMBER")
+                            dockerImage.push('latest')
+                      }
+		      sh "sudo docker run -d -p 8087:8080 yaminianand/digitalbank"
+                 }
+             } 
+	}  
    }
 }
 
