@@ -35,8 +35,8 @@ pipeline{
             steps{
                 input message: 'Do you want to proceed with Deployment? (Click "Proceed" to continue)'   
 		sh "sudo docker build . -t yaminianand/digitalbank"
-		// sh "sudo docker push yaminianand/digitalbank"
-		sh "sudo docker run -d -p 8087:8080 yaminianand/digitalbank"
+		sh "sudo docker push yaminianand/digitalbank1"
+		//sh "sudo docker run -d -p 8087:8080 yaminianand/digitalbank"
             }
         } 
    }
