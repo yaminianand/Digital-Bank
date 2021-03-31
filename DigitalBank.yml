@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: DigitalBankProject
-        image: yaminianand/digitalbank_latest
+        image: yaminianand/digitalbank:latest
         ports:
         - containerPort: 80  
 
