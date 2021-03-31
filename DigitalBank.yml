@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+:wqapiVersion: apps/v1
 kind: Deployment
 metadata:
   name: DigitalBank
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: DigitalBankProject
-        image: yaminianand/digitalbank:latest
+        image: yaminianand/digitalbank_latest
         ports:
         - containerPort: 80  
 
@@ -32,7 +32,7 @@ spec:
     app: DBank
   ports:
     - port: 80
-      targetPort: 8088
+      targetPort: 8080
                           
 
 
