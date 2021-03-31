@@ -41,7 +41,7 @@ pipeline{
                  script{
  		      input message: 'Do you want to proceed with Deployment? (Click "Proceed" to continue)'   
                       dockerImage = docker.build imagename
-                      docker.withRegistry( 'https://hub.docker.com', registryCredential ) {
+                      docker.withRegistry( '', registryCredential ) {
                             dockerImage.push("$BUILD_NUMBER")
                             dockerImage.push('latest')
                       }
