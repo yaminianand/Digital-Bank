@@ -1,21 +1,21 @@
-:wqapiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: DigitalBank
+  name: digitalbank
   labels:
-    app: DBank
+    app: dbank
 spec:
   replicas: 15
   selector:
     matchLabels:
-      app: DBank
+      app: dbank
   template:
     metadata:
       labels:
-        app: DBank
+        app: dbank
     spec:
       containers:
-      - name: DigitalBankProject
+      - name: digitalbankproject
         image: yaminianand/digitalbank:latest
         ports:
         - containerPort: 80  
@@ -25,11 +25,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: Bank-Service
+  name: bank-service
 spec:
   type: NodePort
   selector:
-    app: DBank
+    app: dbank
   ports:
     - port: 80
       targetPort: 8080
